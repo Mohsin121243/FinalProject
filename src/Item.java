@@ -1,16 +1,16 @@
 public class Item {
     private String name;
-    private double price;
+    private String price;
     private String description;
 
     private String itemType;
 
 
-    public Item(double price, String name){
+    public Item(String price, String name){
         this.name = name;
         this.price = price;
     }
-    public Item(double price,String name, String description, String ItemType){
+    public Item(String price,String name, String description, String ItemType){
         this.name = name;
         this.price = price;
         this.description = description;
@@ -21,7 +21,7 @@ public class Item {
         return name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
@@ -30,5 +30,6 @@ public class Item {
         return name +" - " + price;
 
     }
+    public String getItemType(){return itemType;}
 
 }
