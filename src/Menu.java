@@ -16,18 +16,22 @@ public class Menu {
     public Menu(){
         importMenuList("src/AllItems.txt");
         ArrayList<String> itemsSplit= new ArrayList<String>();
+        breakFast =new ArrayList<>();
+        entrees = new ArrayList<>();
+        sides = new ArrayList<>();
+        beverages = new ArrayList<>();
         for(int i =0; i < total.size(); i++){
             String newItem = total.get(i).getItemType();
-            if(newItem.equals(" Breakfast")){
+            if(i<17){
                 breakFast.add(total.get(i));
             }
-            if(newItem.equals("Entrees")){
+            if(i<31 && i>= 17){
                 entrees.add(total.get(i));
             }
-            if(newItem.equals("Sides")){
+            if(i<41&& i>=31){
                 sides.add(total.get(i));
             }
-            if(newItem.equals(" Beverages")){
+            if(i<69&& i>=41){
                 beverages.add(total.get(i));
             }
         }
