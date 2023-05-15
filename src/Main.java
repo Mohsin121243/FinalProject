@@ -16,6 +16,8 @@ public class Main {
             for(int i = 0; i < m.getBreakFast().size(); i++){
                 System.out.println(i+": "+m.getBreakFast().get(i).getName() +" for "+ m.getBreakFast().get(i).getPrice());
             }
+            Order o = new Order(m.getBreakFast().get(2));
+            o.finishOrder();
         }
         if(n.toLowerCase().equals("b")){
             for(int i = 0; i < m.getEntrees().size(); i++){
