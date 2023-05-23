@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Order{
     private String itemType;
@@ -65,10 +64,10 @@ public class Order{
         }
 
     }
-    public String retrieveOrder(int orderNumber){
+    public void readOrders(){
         try
         {
-            FileReader fileReader = new FileReader("Orders.txt");
+            FileReader fileReader = new FileReader("src/Orders.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line = bufferedReader.readLine();
 
@@ -77,7 +76,7 @@ public class Order{
             {
                 String[] menuFromCSV = line.split(": ");
                 if(menuFromCSV.length >=2){
-                orderNumberList.add(menuFromCSV);}
+                    orderNumberList.add(menuFromCSV);}
             }
             bufferedReader.close();
         }
@@ -86,11 +85,17 @@ public class Order{
             // Print out the exception that occurred
             System.out.println("Unable to access " + exception.getMessage());
         }
-        for(int i = 0; i < orderNumberList.size();i++){
-            if(Integer.parseInt(orderNumberList.get(i)[0].substring(13)) == orderNumber){
-                return orderNumberList.get(i)[0] +orderNumberList.get(i)[1] + "\n"+ "Order Retrieved!";
-            }
-        }
-        return "Order not found!";
+    }
+    public void retrieveOrderForFood(int orderNumberr){
+        boolean value = false;
+        if(orderNumberList!= null){
+            for (String[] strings : orderNumberList) {
+                if (Integer.parseInt(strings[0].substring(13)) == orderNumberr&& value == false) {
+                    System.out.println(strings[0] +": "+ strings[1] + "\n" + "Order Retrieved!");
+                    value= true;
+
+                }
+            }}
+        if(!value){System.out.println("Order Not Found");}
     }
 }

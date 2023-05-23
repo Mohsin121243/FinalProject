@@ -31,5 +31,6 @@ public class Item {
 
     }
     public String getItemType(){return itemType;}
+    public void finder(){System.out.println( "Hello");}
 
 }

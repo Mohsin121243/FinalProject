@@ -19,7 +19,10 @@ public class Main {
             Order o = new Order(m.getBreakFast().get(2));
             o.getOrderList().get(0).getName();
             o.finishOrder();
+            o.readOrders();
+            o.retrieveOrderForFood(528);
             System.out.println("Finish");
+
         }
         if(n.toLowerCase().equals("b")){
             for(int i = 0; i < m.getEntrees().size(); i++){
