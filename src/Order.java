@@ -2,31 +2,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Order{
-    private String itemType;
-    private int index;
-    private double cost;
+
     private int orderNumber;
     private ArrayList<String[]> orderNumberList;
 
-    public String getItemType() {
-        return itemType;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public ArrayList<String[]> getOrderNumberList() {
-        return orderNumberList;
-    }
 
     public ArrayList<Item> getOrderList() {
         return orderList;
@@ -40,6 +19,19 @@ public class Order{
         orderNumberList = new ArrayList<>();
         boolean check = false;
         orderNumber = (int)(Math.random()*5000);
+    }
+    public Order(){
+        orderList = new ArrayList<>();
+        orderNumberList = new ArrayList<>();
+        boolean check = false;
+        orderNumber = (int)(Math.random()*5000);
+    }
+
+    public void getFullOrder(){
+        System.out.print("Order Number "+ orderNumber+": ");
+        for(Item i : orderList){
+            System.out.print(i.getName()+" for " + i.getPrice() + ", ");
+        }
     }
 
     public void addItem(Item i){
