@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Menu {
     private ArrayList<Item> total;
@@ -36,6 +37,7 @@ public class Menu {
             }
         }
     }
+
 
     public ArrayList<String> getTester() {
         return tester;

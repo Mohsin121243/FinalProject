@@ -14,6 +14,7 @@ public class Main {
             System.out.println("B. Entrees ");
             System.out.println("C. Sides");
             System.out.println("D. Beverages");
+            System.out.println("E. Retrieve previous order");
             System.out.println("Type the letter of the food choice you would like!");
             Menu m = new Menu();
             Scanner s = new Scanner(System.in);
@@ -32,6 +33,9 @@ public class Main {
                 } else {
                     System.out.println("Item Not Found.");
                 }
+                if(y== 200){
+                    o.menuReader();
+                }
                 while (y != 200) {
                     System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
                     y = c.nextInt();
@@ -48,6 +52,12 @@ public class Main {
                     }
 
 
+                }
+                if(y== 200){
+                    o.menuReader();
+                }
+                if(y== 200){
+                    o.menuReader();
                 }
                 if (y == 300) {
                     if (o.getOrderList().size() > 0) {
@@ -77,6 +87,9 @@ public class Main {
                 } else {
                     System.out.println("Item Not Found.");
                 }
+                if(y== 200){
+                    o.menuReader();
+                }
                 while (y != 200) {
                     System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
                     y = c.nextInt();
@@ -93,6 +106,9 @@ public class Main {
                     }
 
 
+                }
+                if(y== 200){
+                    o.menuReader();
                 }
                 if (y == 300) {
                     if (o.getOrderList().size() > 0) {
@@ -139,6 +155,9 @@ public class Main {
 
 
                 }
+                if(y== 200){
+                    o.menuReader();
+                }
                 if (y == 300) {
                     if (o.getOrderList().size() > 0) {
                         o.getFullOrder();
@@ -166,6 +185,7 @@ public class Main {
                 } else {
                     System.out.println("Item Not Found.");
                 }
+
                 while (y != 200) {
                     System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
                     y = c.nextInt();
@@ -183,6 +203,10 @@ public class Main {
 
 
                 }
+                if(y== 200){
+                    o.menuReader();
+                }
+
                 if (y == 300) {
                     if (o.getOrderList().size() > 0) {
                         o.getFullOrder();
