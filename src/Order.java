@@ -7,6 +7,8 @@ public class Order{
     private int orderNumber;
     private ArrayList<String[]> orderNumberList;
 
+    private double totalPrice;
+
 
     public ArrayList<Item> getOrderList() {
         return orderList;
@@ -15,6 +17,7 @@ public class Order{
     private ArrayList<Item> orderList;
 
     public Order(Item i){
+        totalPrice = 0;
         orderList = new ArrayList<>();
         orderList.add(i);
         orderNumberList = new ArrayList<>();
@@ -36,6 +39,7 @@ public class Order{
     }
 
     public void addItem(Item i){
+        totalPrice+= Double.parseDouble(i.getPrice().substring(1));
         orderList.add(i);
     }
     public void finishOrder()
@@ -47,7 +51,7 @@ public class Order{
             pw.print("Order number "+orderNumber+": ");
             for(int z = 0 ;z< orderList.size();z++)
             {
-                pw.println(orderList.get(z).getName()+ ",");
+                pw.print(orderList.get(z).getName()+ ",");
 
             }
 
@@ -72,7 +76,7 @@ public class Order{
             for (int i = 0; i < m.getBreakFast().size(); i++) {
                 System.out.println(i + ": " + m.getBreakFast().get(i).getName() + " for " + m.getBreakFast().get(i).getPrice());
             }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
+            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order.");
             Scanner c = new Scanner(System.in);
             int y = c.nextInt();
             if (y < m.getBreakFast().size()) {
@@ -82,8 +86,8 @@ public class Order{
                 System.out.println("Item Not Found.");
             }
 
-            while (y != 200) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
+            while (y != 200&& y!=400) {
+                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
                 y = c.nextInt();
                 if (y == 300) {
                     if (getOrderList().size() > 0) {
@@ -114,6 +118,10 @@ public class Order{
                     System.out.println("Item Not Found.");
                 }
             }
+            if(y==400){
+                getFullOrder();
+                finishOrder();
+            }
 
 
         }
@@ -121,7 +129,7 @@ public class Order{
             for (int i = 0; i < m.getEntrees().size(); i++) {
                 System.out.println(i + ": " + m.getEntrees().get(i).getName() + " for " + m.getEntrees().get(i).getPrice());
             }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
+            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
             Scanner c = new Scanner(System.in);
             int y = c.nextInt();
             if (y < m.getEntrees().size()) {
@@ -131,8 +139,8 @@ public class Order{
                 System.out.println("Item Not Found.");
             }
 
-            while (y != 200) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
+            while (y != 200&& y!=400) {
+                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
                 y = c.nextInt();
                 if (y == 300) {
                     if (getOrderList().size() > 0) {
@@ -163,13 +171,17 @@ public class Order{
                     System.out.println("Item Not Found.");
                 }
             }
+            if(y==400){
+                getFullOrder();
+                finishOrder();
+            }
 
         }
         if (n.toLowerCase().equals("c")) {
             for (int i = 0; i < m.getSides().size(); i++) {
                 System.out.println(i + ": " + m.getSides().get(i).getName() + " for " + m.getSides().get(i).getPrice());
             }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
+            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order.");
             Scanner c = new Scanner(System.in);
             int y = c.nextInt();
             if (y < m.getSides().size()) {
@@ -180,8 +192,8 @@ public class Order{
             }
 
 
-            while (y != 200) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
+            while (y != 200&&y!=400) {
+                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
                 y = c.nextInt();
                 if (y == 300) {
                     if (getOrderList().size() > 0) {
@@ -213,6 +225,11 @@ public class Order{
                     System.out.println("Item Not Found.");
                 }
             }
+            if(y==400){
+                getFullOrder();
+                finishOrder();
+            }
+
 
         }
         if (n.toLowerCase().equals("d")) {
@@ -229,7 +246,7 @@ public class Order{
                 System.out.println("Item Not Found.");
             }
 
-            while (y != 200) {
+            while (y != 200 && y!=400) {
                 System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
                 y = c.nextInt();
                 if (y == 300) {
@@ -261,6 +278,17 @@ public class Order{
                     System.out.println("Item Not Found.");
                 }
             }
+            if(y==400){
+                getFullOrder();
+                finishOrder();
+            }
+        }
+        if (n.toLowerCase().equals("e")){
+            System.out.println("Type in your order number.");
+            Scanner c = new Scanner(System.in);
+            int y = c.nextInt();
+            readOrders();
+            retrieveOrderForFood(y);
         }
     }
     public void readOrders(){
