@@ -1,8 +1,14 @@
+import javax.print.DocFlavor;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Order{
+public class Order extends JFrame{
 
     private int orderNumber;
     private ArrayList<String[]> orderNumberList;
@@ -31,11 +37,15 @@ public class Order{
         orderNumber = (int)(Math.random()*5000);
     }
 
-    public void getFullOrder(){
-        System.out.print("Order Number "+ orderNumber+": ");
+    public void getFullOrder(JTextArea outliner){
+        outliner.append("\n"+"Order Number "+ orderNumber+": ");
+        double total =0;
         for(Item i : orderList){
-            System.out.print(i.getName()+" for " + i.getPrice() + ", ");
+            total+= Double.parseDouble(i.getPrice().substring(1));
+            outliner.append("\n"+i.getName()+" for " + i.getPrice() + ", ");
         }
+        outliner.append("\n"+total);
+
     }
 
     public void addItem(Item i){
@@ -61,235 +71,212 @@ public class Order{
         }
 
     }
-    public void menuReader(){
-        System.out.println("Welcome to Chick Fil A! How may I help you?");
-        System.out.println("A. Breakfast");
-        System.out.println("B. Entrees ");
-        System.out.println("C. Sides");
-        System.out.println("D. Beverages");
-        System.out.println("E. Retrieve previous order");
-        System.out.println("Type the letter of the food choice you would like!");
+
+    public void menuReader(JTextArea outliner,JTextField reader,JButton menu, JButton submit, JButton finish,JLabel pic){
+        outliner.setText("Welcome to Chick Fil A! How may I help you?"
+                        +"\nA. Breakfast"
+                        +"\nB. Entrees "
+                        +"\nC. Sides"
+                        +"\nD. Beverages"
+                        +"\nE. Retrieve previous order"
+                        +"\nType the letter of the food choice you would like!");
         Menu m = new Menu();
-        Scanner s = new Scanner(System.in);
-        String n = s.nextLine();
-        if (n.toLowerCase().equals("a")) {
-            for (int i = 0; i < m.getBreakFast().size(); i++) {
-                System.out.println(i + ": " + m.getBreakFast().get(i).getName() + " for " + m.getBreakFast().get(i).getPrice());
-            }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order.");
-            Scanner c = new Scanner(System.in);
-            int y = c.nextInt();
-            if (y < m.getBreakFast().size()) {
-                addItem(m.getBreakFast().get((y)));
-                System.out.println("Item Added!");
-            } else {
-                System.out.println("Item Not Found.");
-            }
-
-            while (y != 200&& y!=400) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
-                y = c.nextInt();
-                if (y == 300) {
-                    if (getOrderList().size() > 0) {
-                        getFullOrder();
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String n = reader.getText();
+                if (n.toLowerCase().equals("a")) {
+                    for (int i = 0; i < m.getBreakFast().size(); i++) {
+                        if(i==0){
+                            outliner.setText(i + ": " + m.getBreakFast().get(i).getName() + " for " + m.getBreakFast().get(i).getPrice());
+                        }
+                        outliner.append("\n"+ i + ": " + m.getBreakFast().get(i).getName() + " for " + m.getBreakFast().get(i).getPrice());
                     }
+                    outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                    submit.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                int y = Integer.parseInt(reader.getText());
+                                if (y < m.getBreakFast().size()) {
+                                    addItem(m.getBreakFast().get((y)));
+                                    outliner.append("\n"+"Item Added!");
+                                } else {
+                                    outliner.append("\n"+"Item Not Found.");
+                                }
+                                outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                            ImageIcon Cashier = new ImageIcon("src/SquidGif.gif");
+                            Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
+                            pic.setIcon(Cashier);
+                            menu.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    menuReader(outliner, reader, menu, submit, finish,pic);
+                                }
+                            });
+                            if (y == 300) {
+                                if (getOrderList().size() > 0) {
+                                    getFullOrder(outliner);
+                                }
+                            }
+                            finish.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    finishOrder();
+                                }
+                            });
+
+                        }
+                    });
+
+
                 }
-                if (y < m.getBreakFast().size()) {
-                    addItem(m.getBreakFast().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-
-
-            }
-            if(y== 200){
-                menuReader();
-            }
-            if (y == 300) {
-                if (getOrderList().size() > 0) {
-                    getFullOrder();
-                }
-            } else {
-                if (y < m.getBreakFast().size()&&y!= 300) {
-                    addItem(m.getBreakFast().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-            }
-            if(y==400){
-                getFullOrder();
-                finishOrder();
-            }
-
-
-        }
-        if (n.toLowerCase().equals("b")) {
-            for (int i = 0; i < m.getEntrees().size(); i++) {
-                System.out.println(i + ": " + m.getEntrees().get(i).getName() + " for " + m.getEntrees().get(i).getPrice());
-            }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
-            Scanner c = new Scanner(System.in);
-            int y = c.nextInt();
-            if (y < m.getEntrees().size()) {
-                addItem(m.getEntrees().get((y)));
-                System.out.println("Item Added!");
-            } else {
-                System.out.println("Item Not Found.");
-            }
-
-            while (y != 200&& y!=400) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
-                y = c.nextInt();
-                if (y == 300) {
-                    if (getOrderList().size() > 0) {
-                        getFullOrder();
+                if (n.toLowerCase().equals("b")) {
+                    for (int i = 0; i < m.getEntrees().size(); i++) {
+                        if(i==0){
+                            outliner.setText(i + ": " + m.getEntrees().get(i).getName() + " for " + m.getEntrees().get(i).getPrice());
+                        }
+                        outliner.append("\n"+ i + ": " + m.getEntrees().get(i).getName() + " for " + m.getEntrees().get(i).getPrice());
                     }
+                    outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                    submit.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int y = Integer.parseInt(reader.getText());
+                            if (y < m.getEntrees().size()) {
+                                addItem(m.getEntrees().get((y)));
+                                outliner.append("\n"+"Item Added!");
+                            } else {
+                                outliner.append("\n"+"Item Not Found.");
+                            }
+                            outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                            ImageIcon Cashier = new ImageIcon("src/SquidGif.gif");
+                            Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
+                            pic.setIcon(Cashier);
+                            menu.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    menuReader(outliner, reader, menu, submit, finish,pic);
+                                }
+                            });
+                            if (y == 300) {
+                                if (getOrderList().size() > 0) {
+                                    getFullOrder(outliner);
+                                }
+                            }
+                            finish.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    finishOrder();
+                                }
+                            });
+
+                        }
+                    });
+
                 }
-                if (y < m.getEntrees().size()) {
-                    addItem(m.getEntrees().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-
-
-            }
-            if(y== 200){
-                menuReader();
-            }
-            if (y == 300) {
-                if (getOrderList().size() > 0) {
-                    getFullOrder();
-                }
-            } else {
-                if (y < m.getEntrees().size()&& y!= 300) {
-                    addItem(m.getEntrees().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-            }
-            if(y==400){
-                getFullOrder();
-                finishOrder();
-            }
-
-        }
-        if (n.toLowerCase().equals("c")) {
-            for (int i = 0; i < m.getSides().size(); i++) {
-                System.out.println(i + ": " + m.getSides().get(i).getName() + " for " + m.getSides().get(i).getPrice());
-            }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order.");
-            Scanner c = new Scanner(System.in);
-            int y = c.nextInt();
-            if (y < m.getSides().size()) {
-                addItem(m.getSides().get((y)));
-                System.out.println("Item Added!");
-            } else {
-                System.out.println("Item Not Found.");
-            }
-
-
-            while (y != 200&&y!=400) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order. Press 400 to finish your order");
-                y = c.nextInt();
-                if (y == 300) {
-                    if (getOrderList().size() > 0) {
-                        getFullOrder();
+                if (n.toLowerCase().equals("c")) {
+                    for (int i = 0; i < m.getSides().size(); i++) {
+                        if(i==0){
+                            outliner.setText(i + ": " + m.getSides().get(i).getName() + " for " + m.getSides().get(i).getPrice());
+                        }
+                        outliner.append("\n"+ i + ": " + m.getSides().get(i).getName() + " for " + m.getSides().get(i).getPrice());
                     }
+                    outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                    submit.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int y = Integer.parseInt(reader.getText());
+                            if (y < m.getSides().size()) {
+                                addItem(m.getSides().get((y)));
+                                outliner.append("\n"+"Item Added!");
+                            } else {
+                                outliner.append("\n"+"Item Not Found.");
+                            }
+                            outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                            ImageIcon Cashier = new ImageIcon("src/SquidGif.gif");
+                            Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
+                            pic.setIcon(Cashier);
+                            menu.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    menuReader(outliner, reader, menu, submit, finish,pic);
+                                }
+                            });
+                            if (y == 300) {
+                                if (getOrderList().size() > 0) {
+                                    getFullOrder(outliner);
+                                }
+                            }
+                            finish.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    finishOrder();
+                                }
+                            });
+
+                        }
+                    });
+
                 }
-                if (y < m.getSides().size()) {
-                    addItem(m.getSides().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-
-
-            }
-            if(y== 200){
-                menuReader();
-            }
-
-            if (y == 300) {
-                if (getOrderList().size() > 0) {
-                    getFullOrder();
-                }
-            } else {
-                if (y < m.getSides().size()&&y!= 300) {
-                    addItem(m.getSides().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-            }
-            if(y==400){
-                getFullOrder();
-                finishOrder();
-            }
-
-
-        }
-        if (n.toLowerCase().equals("d")) {
-            for (int i = 0; i < m.getBeverages().size(); i++) {
-                System.out.println(i + ": " + m.getBeverages().get(i).getName() + " for " + m.getBeverages().get(i).getPrice());
-            }
-            System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
-            Scanner c = new Scanner(System.in);
-            int y = c.nextInt();
-            if (y < m.getBeverages().size()) {
-                addItem(m.getBeverages().get((y)));
-                System.out.println("Item Added!");
-            } else {
-                System.out.println("Item Not Found.");
-            }
-
-            while (y != 200 && y!=400) {
-                System.out.println("Choose the item you want. Press 200 to exit back to main menu. Press 300 to recap your order");
-                y = c.nextInt();
-                if (y == 300) {
-                    if (getOrderList().size() > 0) {
-                        getFullOrder();
+                if (n.toLowerCase().equals("d")) {
+                    for (int i = 0; i < m.getBeverages().size(); i++) {
+                        if(i==0){
+                            outliner.setText(i + ": " + m.getBeverages().get(i).getName() + " for " + m.getBeverages().get(i).getPrice());
+                        }
+                        outliner.append("\n"+ i + ": " + m.getBeverages().get(i).getName() + " for " + m.getBeverages().get(i).getPrice());
                     }
+                    outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                    submit.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int y = Integer.parseInt(reader.getText());
+                            if (y < m.getBeverages().size()) {
+                                addItem(m.getBeverages().get((y)));
+                                outliner.append("\n"+"Item Added!");
+                            } else {
+                                outliner.append("\n"+"Item Not Found.");
+                            }
+                            outliner.append("\n"+"Choose the item you want. Press 'Return to main menu' to exit back to main menu. Press 300 to recap your order. Press 'Finish Order' to finish your order.");
+                            ImageIcon Cashier = new ImageIcon("src/SquidGif.gif");
+                            Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
+                            pic.setIcon(Cashier);
+                            menu.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    menuReader(outliner, reader, menu, submit, finish,pic);
+                                }
+                            });
+                            if (y == 300) {
+                                if (getOrderList().size() > 0) {
+                                    getFullOrder(outliner);
+                                }
+                            }
+                            finish.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    finishOrder();
+                                }
+                            });
+
+                        }
+                    });
                 }
-                if (y < m.getBeverages().size()) {
-                    addItem(m.getBeverages().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
+                if (n.toLowerCase().equals("e")){
+                    outliner.append("Type in your order number.");
+                    submit.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            int orderNumber = Integer.parseInt(reader.getText());
+                            readOrders();
+                            retrieveOrderForFood(orderNumber,outliner);
+                        }
+                    });
+
                 }
+            }
+        });
 
 
-            }
-            if(y== 200){
-                menuReader();
-            }
-            if (y == 300) {
-                if (getOrderList().size() > 0) {
-                    getFullOrder();
-                }
-            } else {
-                if (y < m.getBeverages().size()&& y!=300) {
-                    addItem(m.getBeverages().get((y)));
-                    System.out.println("Item Added!");
-                } else {
-                    System.out.println("Item Not Found.");
-                }
-            }
-            if(y==400){
-                getFullOrder();
-                finishOrder();
-            }
-        }
-        if (n.toLowerCase().equals("e")){
-            System.out.println("Type in your order number.");
-            Scanner c = new Scanner(System.in);
-            int y = c.nextInt();
-            readOrders();
-            retrieveOrderForFood(y);
-        }
     }
     public void readOrders(){
         try
@@ -313,16 +300,16 @@ public class Order{
             System.out.println("Unable to access " + exception.getMessage());
         }
     }
-    public void retrieveOrderForFood(int orderNumberr){
+    public void retrieveOrderForFood(int orderNumberr, JTextArea outliner){
         boolean value = false;
         if(orderNumberList!= null){
             for (String[] strings : orderNumberList) {
                 if (Integer.parseInt(strings[0].substring(13)) == orderNumberr&& value == false) {
-                    System.out.println(strings[0] +": "+ strings[1] + "\n" + "Order Retrieved!");
+                    outliner.append("\n"+strings[0] +": "+ strings[1] + "\n" + "Order Retrieved!");
                     value= true;
 
                 }
             }}
-        if(!value){System.out.println("Order Not Found");}
+        if(!value){outliner.append("\n"+"Order Not Found");}
     }
 }
