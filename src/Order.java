@@ -121,6 +121,7 @@ public class Order extends JFrame{
                             finish.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    getFullOrder(outliner);
                                     finishOrder();
                                 }
                             });
@@ -166,6 +167,7 @@ public class Order extends JFrame{
                             finish.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    getFullOrder(outliner);
                                     finishOrder();
                                 }
                             });
@@ -210,6 +212,7 @@ public class Order extends JFrame{
                             finish.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    getFullOrder(outliner);
                                     finishOrder();
                                 }
                             });
@@ -254,6 +257,7 @@ public class Order extends JFrame{
                             finish.addActionListener(new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
+                                    getFullOrder(outliner);
                                     finishOrder();
                                 }
                             });
