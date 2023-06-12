@@ -22,7 +22,7 @@ public class ChickFilA extends JFrame {
         setContentPane(Panel);
         setTitle("ChickFilA");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000,600);
+        setSize(1200,800);
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setBackground(Color.RED);
@@ -46,6 +46,7 @@ public class ChickFilA extends JFrame {
                 Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
                 Starter.setIcon(Cashier);
                 Point p = Starter.getLocationOnScreen();
+                setSize(1200,1040);
                 orders.setVisible(true);
                 orders.setEditable(false);
                 textField1.setVisible(true);

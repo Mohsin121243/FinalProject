@@ -58,6 +58,7 @@ public class Order extends JFrame{
             System.getProperty("line.separator");
             FileWriter fw = new FileWriter(path, true);
             PrintWriter pw = new PrintWriter(fw);
+            pw.println("");
             pw.print("Order number "+orderNumber+": ");
             for(int z = 0 ;z< orderList.size();z++)
             {
@@ -266,8 +267,8 @@ public class Order extends JFrame{
                     });
                 }
                 if (n.toLowerCase().equals("e")){
-                    outliner.append("Type in your order number.");
-                    submit.addActionListener(new ActionListener() {
+                    outliner.append("\n"+"Type in your order number.");
+                    finish.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             int orderNumber = Integer.parseInt(reader.getText());

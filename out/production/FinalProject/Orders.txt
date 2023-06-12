@@ -27,4 +27,5 @@ Kale Crunch Side,
 Chicken Noodle Soup,
 Chick-fil-A® Chicken Sandwich,
 Chick-fil-A® Deluxe Sandwich,
-Order number 4868: Sausage, Egg & Cheese Muffin,English Muffin,Greek Yogurt Parfait,Chicken, Egg & Cheese Muffin,Sausage, Egg & Cheese Biscuit,
+Order number 4868: Sausage, Egg & Cheese Muffin,English Muffin,Greek Yogurt Parfait,Chicken, Egg & Cheese Muffin,Sausage, Egg & Cheese Biscuit,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 3349: Chick-fil-A Chick-n-Minis™,Chick-fil-A Chick-n-Minis™,Order number 4830: Chick-fil-A Chick-n-Minis™,Order number 4830: Chick-fil-A Chick-n-Minis™,Order number 3866: 
+1% Milk,
