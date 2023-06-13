@@ -22,7 +22,7 @@ public class ChickFilA extends JFrame {
         setContentPane(Panel);
         setTitle("ChickFilA");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1200,800);
+        setSize(965,800);
         setLocationRelativeTo(null);
         setVisible(true);
         getContentPane().setBackground(Color.RED);
@@ -41,6 +41,7 @@ public class ChickFilA extends JFrame {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                getContentPane().setBackground(Color.CYAN);
                 orderButton.setVisible(false);
                 ImageIcon Cashier = new ImageIcon("src/Squidward.jpg");
                 Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
@@ -52,7 +53,7 @@ public class ChickFilA extends JFrame {
                 textField1.setVisible(true);
                 scroller.setVisible(true);
                 scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-                orders.setBackground(Color.RED);
+                orders.setBackground(Color.WHITE);
                 Order o = new Order();
                 returnToMainMenuButton.setVisible(true);
                 finishOrderButton.setVisible(true);
