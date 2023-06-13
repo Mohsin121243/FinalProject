@@ -41,7 +41,7 @@ public class ChickFilA extends JFrame {
         orderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                getContentPane().setBackground(Color.CYAN);
+                getContentPane().setBackground(Color.RED);
                 orderButton.setVisible(false);
                 ImageIcon Cashier = new ImageIcon("src/Squidward.jpg");
                 Image Cash = Cashier.getImage().getScaledInstance(290,210,Image.SCALE_DEFAULT);
