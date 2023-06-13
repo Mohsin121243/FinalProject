@@ -267,7 +267,7 @@ public class Order extends JFrame{
                     });
                 }
                 if (n.toLowerCase().equals("e")){
-                    outliner.append("\n"+"Type in your order number.");
+                    outliner.append("\n"+"Type in your order number. And click finish order!");
                     finish.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
